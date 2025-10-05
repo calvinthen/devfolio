@@ -39,13 +39,13 @@ export default function Card({
         <p className="text-sm text-gray-300 mb-3">{description}</p>
 
         <div className="flex flex-wrap gap-2 mb-4">
-          {tags.map((t) => (
+          {tags.map((tag) => (
             <span
-              key={t}
+              key={tag}
               className="text-xs bg-gray-700 px-2 py-1 rounded"
               aria-hidden
             >
-              {t}
+              {tag}
             </span>
           ))}
         </div>
