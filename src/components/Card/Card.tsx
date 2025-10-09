@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom"
+
 type ProjectCardProps = {
   id: string
   title: string
@@ -15,16 +17,22 @@ export default function Card({
   image,
   onClick,
 }: ProjectCardProps) {
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+    const navigate = useNavigate()
+    const handleClick = () => {
+      navigate(`/projects/${id}`)
+    } 
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault()
-      onClick?.(id)
+      handleClick()
     }
   }
   return (
     <article
       role="article"
       aria-label={`Open project ${title}`}
+      onClick={handleClick}
       tabIndex={0}
       onKeyDown={handleKeyDown}
       className="bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-transform duration-200 transform hover:-translate-y-1"
