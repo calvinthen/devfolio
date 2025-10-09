@@ -1,4 +1,3 @@
-// src/components/Card/Card.tsx
 type ProjectCardProps = {
   id: string
   title: string
@@ -16,9 +15,18 @@ export default function Card({
   image,
   onClick,
 }: ProjectCardProps) {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault()
+      onClick?.(id)
+    }
+  }
   return (
     <article
       role="article"
+      aria-label={`Open project ${title}`}
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
       className="bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-transform duration-200 transform hover:-translate-y-1"
     >
       {/* image / placeholder */}
@@ -26,6 +34,8 @@ export default function Card({
         <img
           src={image}
           alt={`${title} screenshot`}
+          loading="lazy"
+          decoding="async"
           className="w-full h-44 object-cover"
         />
       ) : (
