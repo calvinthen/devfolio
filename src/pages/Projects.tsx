@@ -3,25 +3,13 @@ import { projects } from "../data/Project"
 
 export default function Projects() {
   return (
-      <div className="p-8 container mx-auto">
-        <h1 className="text-3xl font-bold mb-6">Projects</h1>
-
-        <p className="text-gray-300 mb-6">
-          Example projects — click a card to view its details.
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((p) => (
-            <Card
-              key={p.id}
-              id={p.id}
-              title={p.title}
-              description={p.description}
-              tags={p.tags}
-              image={p.image}
-            />
-          ))}
-        </div>
-      </div>
+        <section className="min-h-screen bg-gray-900 text-white py-20 px-6">
+          <h2 className="text-4xl font-bold text-center mb-10">My Projects</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {projects.map((project) => (
+              <Card key={project.id} {...project} />
+            ))}
+          </div>
+      </section>
     )
 }

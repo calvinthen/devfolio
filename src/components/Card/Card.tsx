@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom"
+import { motion } from "framer-motion"
 
 type ProjectCardProps = {
   id: string
@@ -17,25 +18,37 @@ export default function Card({
   image,
   onClick,
 }: ProjectCardProps) {
-    const navigate = useNavigate()
-    const handleClick = () => {
-      navigate(`/projects/${id}`)
-    } 
+  const navigate = useNavigate()
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+  const handleClick = () => {
+    navigate(`/projects/${id}`)
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault()
       handleClick()
     }
   }
+
   return (
-    <article
+ 
+    <motion.article
       role="article"
       aria-label={`Open project ${title}`}
-      onClick={handleClick}
       tabIndex={0}
+      onClick={handleClick}
       onKeyDown={handleKeyDown}
-      className="bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-transform duration-200 transform hover:-translate-y-1"
+      className="bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-transform duration-150 cursor-pointer"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.97 }}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{
+        duration: 0.3,
+        ease: "easeOut",
+      }}
     >
       {/* image / placeholder */}
       {image ? (
@@ -78,6 +91,6 @@ export default function Card({
           </button>
         </div>
       </div>
-    </article>
+    </motion.article>
   )
 }
