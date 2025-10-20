@@ -1,7 +1,13 @@
-import { FaReact, FaHtml5, FaCss3Alt, FaNodeJs } from "react-icons/fa"
-import { SiTypescript, SiTailwindcss, SiVite, SiGit } from "react-icons/si"
-
 export default function About() {
+  const techStack = [
+    { name: "React", icon: "⚛️", color: "text-cyan-400" },
+    { name: "TypeScript", icon: "🌀", color: "text-blue-500" },
+    { name: "Tailwind", icon: "🌊", color: "text-sky-400" },
+    { name: "HTML5", icon: "🔶", color: "text-orange-500" },
+    { name: "CSS3", icon: "🎨", color: "text-blue-400" },
+    { name: "Node.js", icon: "🌿", color: "text-green-500" },
+  ]
+
   return (
     <section className="min-h-screen bg-gray-900 text-white py-20 px-6">
       <div className="max-w-4xl mx-auto text-center">
@@ -27,14 +33,12 @@ export default function About() {
           </p>
 
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-8 justify-items-center">
-            <FaReact className="text-5xl text-cyan-400" title="React" />
-            <SiTypescript className="text-5xl text-blue-500" title="TypeScript" />
-            <SiTailwindcss className="text-5xl text-sky-400" title="Tailwind CSS" />
-            <FaHtml5 className="text-5xl text-orange-500" title="HTML5" />
-            <FaCss3Alt className="text-5xl text-blue-400" title="CSS3" />
-            <FaNodeJs className="text-5xl text-green-500" title="Node.js" />
-            <SiVite className="text-5xl text-purple-400" title="Vite" />
-            <SiGit className="text-5xl text-orange-400" title="Git" />
+            {techStack.map((tech) => (
+              <div key={tech.name} className="flex flex-col items-center">
+                <span className={`text-5xl ${tech.color}`}>{tech.icon}</span>
+                <p className="mt-2 text-sm text-gray-300">{tech.name}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
