@@ -35,8 +35,8 @@ export default function About() {
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-8 justify-items-center">
             {techStack.map((tech) => (
               <div key={tech.name} className="flex flex-col items-center">
-                <span className={`text-5xl ${tech.color}`}>{tech.icon}</span>
-                <p className="mt-2 text-sm text-gray-300">{tech.name}</p>
+                <span className={`text-5xl ${tech.color}`}> {tech.icon}</span>
+                <p className="mt-2 text-sm text-white-300"><b>{tech.name}</b></p>
               </div>
             ))}
           </div>
