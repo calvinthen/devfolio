@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" })
@@ -83,17 +84,41 @@ export default function Contact() {
           <button
             type="submit"
             disabled={status === "sending"}
-            className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium transition disabled:opacity-50"
+            className="relative bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium transition disabled:opacity-50"
           >
-            {status === "sending" ? "Sending..." : "Send Message"}
+            {status === "sending" ? (
+              <span className="flex items-center justify-center space-x-2">
+                <span className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                <span>Sending...</span>
+              </span>
+            ) : (
+              "Send Message"
+            )}
           </button>
         </form>
+        {/* Success & Error Messages with fade animation */}
+        <AnimatePresence>
           {status === "success" && (
-            <p className="text-green-400 mt-4">✅ Message sent successfully!</p>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="text-green-400 mt-4"
+            >
+              ✅ Message sent successfully!
+            </motion.p>
           )}
           {status === "error" && (
-            <p className="text-red-400 mt-4">❌ Something went wrong. Try again later.</p>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="text-red-400 mt-4"
+            >
+              ❌ Something went wrong. Try again later.
+            </motion.p>
           )}
+        </AnimatePresence>
       </div>
     </section>
   )
