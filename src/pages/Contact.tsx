@@ -2,14 +2,36 @@ import { useState } from "react"
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" })
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle")
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Form submitted:", form)
+    setStatus("sending")
+
+    try {
+      const response = await fetch("https://formspree.io/f/xeorbaqr", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          message: form.message,
+        }),
+      })
+
+      if (response.ok) {
+        setStatus("success")
+        setForm({ name: "", email: "", message: "" })
+      } else {
+        setStatus("error")
+      }
+    } catch {
+      setStatus("error")
+    }
   }
 
   return (
@@ -60,11 +82,18 @@ export default function Contact() {
 
           <button
             type="submit"
-            className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium transition"
+            disabled={status === "sending"}
+            className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium transition disabled:opacity-50"
           >
-            Send Message
+            {status === "sending" ? "Sending..." : "Send Message"}
           </button>
         </form>
+          {status === "success" && (
+            <p className="text-green-400 mt-4">✅ Message sent successfully!</p>
+          )}
+          {status === "error" && (
+            <p className="text-red-400 mt-4">❌ Something went wrong. Try again later.</p>
+          )}
       </div>
     </section>
   )
