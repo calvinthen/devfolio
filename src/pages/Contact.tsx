@@ -4,13 +4,13 @@ import { motion, AnimatePresence } from "framer-motion"
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" })
   const [errors, setErrors] = useState({ name: "", email: "", message: "" })
+  const [touched, setTouched] = useState({ name: false, email: false, message: false })
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle")
   const [isValid, setIsValid] = useState(false)
 
-  // Regex for simple email format validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-  // Validate each field as user types
+  // Validation logic (runs whenever form data changes)
   useEffect(() => {
     const newErrors = { name: "", email: "", message: "" }
 
@@ -27,34 +27,35 @@ export default function Contact() {
     }
 
     setErrors(newErrors)
-
-    // Form is valid if no error messages exist
-    const noErrors = Object.values(newErrors).every((err) => err === "")
-    setIsValid(noErrors)
+    setIsValid(Object.values(newErrors).every((err) => err === ""))
   }, [form])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setTouched({ ...touched, [e.target.name]: true })
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setTouched({ name: true, email: true, message: true }) // Show all errors if user tries to submit
+    if (!isValid) return
+
     setStatus("sending")
 
     try {
       const response = await fetch("https://formspree.io/f/xeorbaqr", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          message: form.message,
-        }),
+        body: JSON.stringify(form),
       })
 
       if (response.ok) {
         setStatus("success")
         setForm({ name: "", email: "", message: "" })
+        setTouched({ name: false, email: false, message: false })
       } else {
         setStatus("error")
       }
@@ -80,11 +81,16 @@ export default function Contact() {
               placeholder="Your Name"
               value={form.name}
               onChange={handleChange}
+              onBlur={handleBlur}
               className={`w-full px-4 py-3 rounded-lg bg-gray-800 border ${
-                errors.name ? "border-red-500" : "border-gray-700 focus:border-blue-500"
+                touched.name && errors.name
+                  ? "border-red-500"
+                  : "border-gray-700 focus:border-blue-500"
               } focus:outline-none`}
             />
-            {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+            {touched.name && errors.name && (
+              <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+            )}
           </div>
 
           {/* Email Field */}
@@ -95,11 +101,16 @@ export default function Contact() {
               placeholder="Your Email"
               value={form.email}
               onChange={handleChange}
+              onBlur={handleBlur}
               className={`w-full px-4 py-3 rounded-lg bg-gray-800 border ${
-                errors.email ? "border-red-500" : "border-gray-700 focus:border-blue-500"
+                touched.email && errors.email
+                  ? "border-red-500"
+                  : "border-gray-700 focus:border-blue-500"
               } focus:outline-none`}
             />
-            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+            {touched.email && errors.email && (
+              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+            )}
           </div>
 
           {/* Message Field */}
@@ -110,11 +121,16 @@ export default function Contact() {
               rows={5}
               value={form.message}
               onChange={handleChange}
+              onBlur={handleBlur}
               className={`w-full px-4 py-3 rounded-lg bg-gray-800 border ${
-                errors.message ? "border-red-500" : "border-gray-700 focus:border-blue-500"
+                touched.message && errors.message
+                  ? "border-red-500"
+                  : "border-gray-700 focus:border-blue-500"
               } focus:outline-none resize-none`}
             />
-            {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
+            {touched.message && errors.message && (
+              <p className="text-red-500 text-sm mt-1">{errors.message}</p>
+            )}
           </div>
 
           {/* Submit Button */}
