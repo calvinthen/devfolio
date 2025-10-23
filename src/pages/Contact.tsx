@@ -9,31 +9,42 @@ export default function Contact() {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
+  // inside your Contact.tsx component — replace handleSubmit with this version
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setStatus("sending")
 
     try {
-      const response = await fetch("https://formspree.io/f/xeorbaqr", {
+      // build a FormData payload (this avoids setting Content-Type manually)
+      const fd = new FormData()
+      fd.append("name", form.name)
+      fd.append("email", form.email)
+      fd.append("message", form.message)
+
+      const res = await fetch("https://formspree.io/f/xeorbaqr", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          message: form.message,
-        }),
+        body: fd, // browser will set the multipart/form-data header
       })
 
-      if (response.ok) {
+      // helpful debug logging
+      console.log("Formspree response status:", res.status)
+      const text = await res.text()
+      console.log("Formspree response body:", text)
+
+      if (res.ok) {
         setStatus("success")
         setForm({ name: "", email: "", message: "" })
       } else {
+        // show server message if available
         setStatus("error")
+        console.error("Formspree returned an error:", res.status, text)
       }
-    } catch {
+    } catch (err) {
       setStatus("error")
+      console.error("Network/JS error sending form:", err)
     }
   }
+
 
   return (
     <section className="min-h-screen bg-gray-900 text-white py-20 px-6 flex flex-col items-center justify-center">
