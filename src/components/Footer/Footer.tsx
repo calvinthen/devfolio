@@ -2,7 +2,7 @@ import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa"
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-800 text-gray-400 py-6 mt-auto">
+    <footer className="bg-white text-gray-900 dark:bg-gray-800 dark:text-white text-gray-400 py-6 mt-auto">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
         <p className="text-sm mb-4 md:mb-0">
           © {new Date().getFullYear()} Devfolio. Built with React + Tailwind.

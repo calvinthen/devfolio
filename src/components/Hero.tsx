@@ -2,19 +2,32 @@ import { useNavigate } from "react-router-dom"
 import "../index.css"
 
 export default function Hero() {
-    const navigate = useNavigate()
+  const navigate = useNavigate()
 
-    const handleViewProjects = () => navigate("/projects")
-    const handleContactMe = () => navigate("/contact")
+  const handleViewProjects = () => navigate("/projects")
+  const handleContactMe = () => navigate("/contact")
 
   return (
-    <section className="flex flex-col items-center justify-center min-h-[90vh] text-center bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white px-6 py-20 animate-fadeIn">
+    <section
+      className="
+        flex flex-col items-center justify-center
+        min-h-[90vh] text-center
+        bg-gradient-to-br from-white to-gray-100
+        dark:from-gray-900 dark:via-gray-800 dark:to-black
+        text-gray-900 dark:text-white
+        px-6 py-20 animate-fadeIn
+        transition-colors duration-500
+      "
+    >
       <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight">
-        Hi, I’m <span className="text-blue-500">Calvin Then</span> 👋
+        Hi, I’m <span className="text-blue-600 dark:text-blue-400">Calvin Then</span> 👋
       </h1>
-      <p className="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl">
-        A Frontend Developer passionate about crafting interactive and scalable
-        web experiences with <span className="text-blue-400">React</span>, <span className="text-blue-400">TypeScript</span>, and <span className="text-blue-400">Tailwind CSS</span>.
+
+      <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-10 max-w-2xl">
+        A Frontend Developer passionate about crafting interactive and scalable web experiences
+        with <span className="text-blue-600 dark:text-blue-400">React</span>,{" "}
+        <span className="text-blue-600 dark:text-blue-400">TypeScript</span>, and{" "}
+        <span className="text-blue-600 dark:text-blue-400">Tailwind CSS</span>.
       </p>
 
       <div className="flex flex-wrap justify-center gap-4">
@@ -26,7 +39,7 @@ export default function Hero() {
         </button>
         <button
           onClick={handleContactMe}
-          className="border border-gray-500 hover:bg-gray-800 text-white px-8 py-3 rounded-lg font-medium shadow-sm transition-transform transform hover:-translate-y-1"
+          className="border border-gray-400 dark:border-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-white px-8 py-3 rounded-lg font-medium shadow-sm transition-transform transform hover:-translate-y-1"
         >
           Contact Me
         </button>

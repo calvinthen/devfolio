@@ -7,7 +7,11 @@ html {
 }
 
 body {
-  @apply bg-gray-900 text-white antialiased; /* dark mode default */
+  @apply bg-gray-50 text-gray-900 transition-colors duration-300;
+}
+
+.dark body {
+  @apply bg-gray-900 text-gray-100;
 }
 
 @media (prefers-color-scheme: light) {

@@ -7,7 +7,7 @@ export default function Navbar() {
   const { theme, toggleTheme } = useTheme()
 
   return (
-    <nav className="bg-gray-800 text-white px-6 py-4 flex justify-between items-center">
+    <nav className="bg-white text-gray-900 dark:bg-gray-800 dark:text-white px-6 py-4 flex justify-between items-center">
       {/* Logo / Brand */}
       <NavLink to="/" className="text-xl font-bold">
         Devfolio
