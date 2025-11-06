@@ -65,10 +65,10 @@ export default function Contact() {
   }
 
   return (
-    <section className="min-h-screen bg-gray-900 text-white py-20 px-6 flex flex-col items-center justify-center">
-      <div className="max-w-3xl w-full text-center">
+    <section className="min-h-screen bg-gray-100 dark:bg-gray-900 text-white py-20 px-6 flex flex-col items-center justify-center">
+      <div className="max-w-3xl w-full text-center text-black dark:text-white">
         <h1 className="text-4xl font-bold mb-6">Get In Touch</h1>
-        <p className="text-gray-400 mb-10">
+        <p className="dark:text-gray-400 mb-10">
           Have a project in mind or just want to say hi? Feel free to reach out!
         </p>
 
@@ -82,7 +82,7 @@ export default function Contact() {
               value={form.name}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={`w-full px-4 py-3 rounded-lg bg-gray-800 border ${
+              className={`w-full px-4 py-3 rounded-lg dark:bg-gray-800 border ${
                 touched.name && errors.name
                   ? "border-red-500"
                   : "border-gray-700 focus:border-blue-500"
@@ -102,7 +102,7 @@ export default function Contact() {
               value={form.email}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={`w-full px-4 py-3 rounded-lg bg-gray-800 border ${
+              className={`w-full px-4 py-3 rounded-lg dark:bg-gray-800 border ${
                 touched.email && errors.email
                   ? "border-red-500"
                   : "border-gray-700 focus:border-blue-500"
@@ -122,7 +122,7 @@ export default function Contact() {
               value={form.message}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={`w-full px-4 py-3 rounded-lg bg-gray-800 border ${
+              className={`w-full px-4 py-3 rounded-lg dark:bg-gray-800 border ${
                 touched.message && errors.message
                   ? "border-red-500"
                   : "border-gray-700 focus:border-blue-500"
@@ -137,7 +137,7 @@ export default function Contact() {
           <button
             type="submit"
             disabled={!isValid || status === "sending"}
-            className="w-full bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium transition disabled:opacity-50 disabled:cursor-not-allowed text-white dark:text-black"
           >
             {status === "sending" ? (
               <span className="flex items-center justify-center space-x-2">

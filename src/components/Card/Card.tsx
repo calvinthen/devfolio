@@ -37,7 +37,7 @@ export default function Card({
       tabIndex={0}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
-      className="bg-gray-800 rounded-xl overflow-hidden shadow-md transition-transform duration-150 cursor-pointer hover:shadow-blue-500/20"
+      className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md transition-transform duration-150 cursor-pointer hover:shadow-blue-500/20"
       whileHover={{ scale: 1.06 }}
       whileTap={{ scale: 0.97 }}
       initial={{ opacity: 0, y: 40 }}
@@ -62,13 +62,13 @@ export default function Card({
 
       <div className="p-4">
         <h3 className="text-lg font-semibold mb-2">{title}</h3>
-        <p className="text-sm text-gray-300 mb-3">{description}</p>
+        <p className="text-sm text-black dark:text-gray-200 mb-3">{description}</p>
 
         <div className="flex flex-wrap gap-2 mb-4">
           {tags.map((tag) => (
             <span
               key={tag}
-              className="text-xs bg-gray-700 px-2 py-1 rounded"
+              className="text-xs bg-black dark:bg-gray-700 px-2 py-1 rounded text-white"
               aria-hidden
             >
               {tag}
@@ -80,7 +80,7 @@ export default function Card({
           <button
             aria-label={`View ${title}`}
             onClick={handleClick}
-            className="px-4 py-1 bg-blue-600 hover:bg-blue-700 rounded text-sm font-medium transition-colors"
+            className="px-4 py-1 bg-black text-white hover:bg-gray-700 dark:bg-blue-600 dark:hover:bg-blue-700 rounded text-sm font-medium transition-colors"
           >
             View
           </button>
