@@ -1,4 +1,3 @@
-// src/components/SEO.tsx
 import { useEffect } from "react"
 
 type SEOProps = {

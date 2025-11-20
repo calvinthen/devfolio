@@ -8,8 +8,8 @@ export default function Home() {
         <SEO
           title="Home"
           description="Hi, I’m Calvin Then — frontend developer building modern web apps with React, TypeScript, and Tailwind."
-          url=""
-          image=""
+          url="http://localhost:5173/"
+          image="http://localhost:5173/OG_image.png"
       />
       <Hero />
     </div>
